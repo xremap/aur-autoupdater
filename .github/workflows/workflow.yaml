@@ -1,0 +1,12 @@
+on: workflow_dispatch
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    container: golang:1.19-bullseye
+    steps:
+      - uses: actions/checkout@v2
+
+      - run: go run cmd/aur-autoupdater/main.go
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+          SSH_KEY_PASSWORD: ${{ secrets.SSH_KEY_PASSWORD }}
