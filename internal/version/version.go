@@ -4,7 +4,7 @@ type Version interface {
 	Version() string
 }
 
-func stripV(v string) string {
+func StripV(v string) string {
 	if len(v) > 0 && v[0] == 'v' {
 		return v[1:]
 	}
@@ -13,5 +13,5 @@ func stripV(v string) string {
 }
 
 func Equal(v1, v2 Version) bool {
-	return stripV(v1.Version()) == stripV(v2.Version())
+	return StripV(v1.Version()) == StripV(v2.Version())
 }
