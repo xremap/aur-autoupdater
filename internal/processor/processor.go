@@ -12,7 +12,7 @@ import (
 	"github.com/go-git/go-billy/v5/memfs"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/object"
-	"github.com/go-git/go-git/v5/plumbing/transport/ssh"
+	gitssh "github.com/go-git/go-git/v5/plumbing/transport/ssh"
 	"github.com/go-git/go-git/v5/storage/memory"
 	"github.com/njkevlani/aur-autoupdater/internal/aur/pkgbuild"
 	"github.com/njkevlani/aur-autoupdater/internal/aurversion"
@@ -21,6 +21,7 @@ import (
 	"github.com/njkevlani/aur-autoupdater/internal/packageinfo"
 	"github.com/njkevlani/aur-autoupdater/internal/version"
 	"github.com/sirupsen/logrus"
+	"golang.org/x/crypto/ssh"
 )
 
 func Process(packageName string) error {
@@ -160,7 +161,8 @@ func getRepo(packageName string) (*git.Repository, billy.Filesystem, error) {
 
 	sshPrivateKeyPassword := os.Getenv("SSH_KEY_PASSWORD")
 	sshPrivateKey := os.Getenv("SSH_KEY")
-	publicKey, err := ssh.NewPublicKeys("aur", []byte(sshPrivateKey), sshPrivateKeyPassword)
+	publicKey, err := gitssh.NewPublicKeys("aur", []byte(sshPrivateKey), sshPrivateKeyPassword)
+	publicKey.HostKeyCallback = ssh.InsecureIgnoreHostKey()
 
 	if err != nil {
 		return nil, nil, err
@@ -214,7 +216,8 @@ func getSHA256Sum(url string) (string, error) {
 func pushRepo(repo *git.Repository) error {
 	sshPrivateKeyPassword := os.Getenv("SSH_KEY_PASSWORD")
 	sshPrivateKey := os.Getenv("SSH_KEY")
-	publicKey, err := ssh.NewPublicKeys("aur", []byte(sshPrivateKey), sshPrivateKeyPassword)
+	publicKey, err := gitssh.NewPublicKeys("aur", []byte(sshPrivateKey), sshPrivateKeyPassword)
+	publicKey.HostKeyCallback = ssh.InsecureIgnoreHostKey()
 
 	if err != nil {
 		return err
