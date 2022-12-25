@@ -22,12 +22,14 @@ func GetAURVersion(srcinfoFile io.Reader) (version.Version, error) {
 	srcinfoFileContent, err := ioutil.ReadAll(srcinfoFile)
 
 	if err != nil {
+		logrus.WithError(err).Error("failed to read srcinfo file")
 		return nil, err
 	}
 
 	parsedScrinfo, err := pkgbuild.ParseSRCINFOContent(srcinfoFileContent)
 
 	if err != nil {
+		logrus.WithError(err).Error("failed to parse pkgbuild")
 		return nil, err
 	}
 

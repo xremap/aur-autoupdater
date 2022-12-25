@@ -11,8 +11,11 @@ import (
 
 // Currently, only fetches from GitHub
 func GetLatestVersion(owner, repo string) (version.Version, error) {
-	resp, err := http.Get(fmt.Sprintf("https://api.github.com/repos/%s/%s/releases/latest", owner, repo))
+	url := fmt.Sprintf("https://api.github.com/repos/%s/%s/releases/latest", owner, repo)
+
+	resp, err := http.Get(url)
 	if err != nil {
+		logrus.WithError(err).WithField("url", url).Error("failed to get latest release info")
 		return nil, err
 	}
 
@@ -22,6 +25,7 @@ func GetLatestVersion(owner, repo string) (version.Version, error) {
 	err = json.NewDecoder(resp.Body).Decode(&version)
 
 	if err != nil {
+		logrus.WithError(err).WithField("url", url).Error("failed to decode response")
 		return nil, err
 	}
 

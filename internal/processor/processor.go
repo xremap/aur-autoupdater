@@ -31,30 +31,36 @@ func Process(packageName string) error {
 	)
 
 	if packageInfo, ok = packageinfo.PackageInfos[packageName]; !ok {
+		logrus.WithField("packageName", packageName).Error("unknown packageName")
 		return internalerrors.ErrUnknownPackage
 	}
 
 	repo, fs, err := getRepo(packageName)
 	if err != nil {
+		logrus.WithError(err).Error("failed to get repo")
 		return err
 	}
 
 	srcinfoFile, err := fs.OpenFile(".SRCINFO", os.O_RDWR, 0644)
 	if err != nil {
+		logrus.WithError(err).Error("failed to open scrinfo file")
 		return err
 	}
 
 	aurVersion, err := aurversion.GetAURVersion(srcinfoFile)
 	if err != nil {
+		logrus.WithError(err).Error("failed to get aur version")
 		return err
 	}
 
 	if err = srcinfoFile.Close(); err != nil {
+		logrus.WithError(err).Error("failed to close srcinfo file")
 		return err
 	}
 
 	latestVersion, err := latestversion.GetLatestVersion(packageInfo.GitHubInfo.Owner, packageInfo.GitHubInfo.Repo)
 	if err != nil {
+		logrus.WithError(err).Error("failed to get latest version")
 		return err
 	}
 
@@ -63,7 +69,12 @@ func Process(packageName string) error {
 	} else {
 		logrus.Infof("versions are not same for %s", packageName)
 
-		changeVersion(repo, fs, packageInfo, latestVersion)
+		err := changeVersion(repo, fs, packageInfo, latestVersion)
+
+		if err != nil {
+			logrus.WithError(err).Error("failed to change version")
+			return err
+		}
 	}
 
 	return nil
@@ -72,16 +83,19 @@ func Process(packageName string) error {
 func changeVersion(repo *git.Repository, fs billy.Filesystem, packageInfo packageinfo.PackageInfo, latestVersion version.Version) error {
 	workTree, err := repo.Worktree()
 	if err != nil {
+		logrus.WithError(err).Error("failed to get worktree")
 		return err
 	}
 
 	sha256Sum, err := getSHA256Sum(packageInfo.GitHubInfo.ReleaseAssetURL(version.StripV(latestVersion.Version())))
 	if err != nil {
+		logrus.WithError(err).Error("failed to get sha256sum")
 		return err
 	}
 
 	srcinfoFile, err := fs.OpenFile(".SRCINFO", os.O_RDWR, 0644)
 	if err != nil {
+		logrus.WithError(err).Error("failed to open srcinfo file")
 		return err
 	}
 
@@ -96,10 +110,12 @@ func changeVersion(repo *git.Repository, fs billy.Filesystem, packageInfo packag
 		},
 		srcinfoFile,
 	); err != nil {
+		logrus.WithError(err).Error("failed to render srcinfo file")
 		return err
 	}
 
 	if err = srcinfoFile.Close(); err != nil {
+		logrus.WithError(err).Error("failed to close srcinfo file")
 		return err
 	}
 
@@ -107,6 +123,7 @@ func changeVersion(repo *git.Repository, fs billy.Filesystem, packageInfo packag
 
 	pkgbuildFile, err := fs.OpenFile("PKGBUILD", os.O_RDWR, 0644)
 	if err != nil {
+		logrus.WithError(err).Error("failed to open pkgbuild file")
 		return err
 	}
 
@@ -121,10 +138,12 @@ func changeVersion(repo *git.Repository, fs billy.Filesystem, packageInfo packag
 		},
 		pkgbuildFile,
 	); err != nil {
+		logrus.WithError(err).Error("failed to render pkgbuild file")
 		return err
 	}
 
 	if err = pkgbuildFile.Close(); err != nil {
+		logrus.WithError(err).Error("failed to close pkgbuild file")
 		return err
 	}
 
@@ -132,6 +151,7 @@ func changeVersion(repo *git.Repository, fs billy.Filesystem, packageInfo packag
 
 	status, err := workTree.Status()
 	if err != nil {
+		logrus.WithError(err).Error("failed to get worktree status")
 		return err
 	}
 
@@ -141,6 +161,7 @@ func changeVersion(repo *git.Repository, fs billy.Filesystem, packageInfo packag
 		Author: &object.Signature{Name: "Nilesh", Email: "njkevlani@gmail.com", When: time.Now()},
 	})
 	if err != nil {
+		logrus.WithError(err).Error("failed to commit")
 		return err
 	}
 
@@ -148,6 +169,7 @@ func changeVersion(repo *git.Repository, fs billy.Filesystem, packageInfo packag
 
 	commitObj, err := repo.CommitObject(commit)
 	if err != nil {
+		logrus.WithError(err).Error("failed to get commit object")
 		return err
 	}
 
@@ -165,6 +187,7 @@ func getRepo(packageName string) (*git.Repository, billy.Filesystem, error) {
 	publicKey.HostKeyCallback = ssh.InsecureIgnoreHostKey()
 
 	if err != nil {
+		logrus.WithError(err).Error("failed to get ssh key")
 		return nil, nil, err
 	}
 
@@ -174,11 +197,13 @@ func getRepo(packageName string) (*git.Repository, billy.Filesystem, error) {
 	})
 
 	if err != nil {
+		logrus.WithError(err).WithField("packageName", packageName).Error("failed to clone reo")
 		return nil, nil, err
 	}
 
 	head, err := repo.Head()
 	if err != nil {
+		logrus.WithError(err).Error("failed to get head of repo")
 		return nil, nil, err
 	}
 
@@ -190,6 +215,7 @@ func getRepo(packageName string) (*git.Repository, billy.Filesystem, error) {
 func getSHA256Sum(url string) (string, error) {
 	resp, err := http.Get(url)
 	if err != nil {
+		logrus.WithError(err).WithField("url", url).Error("failed to get response")
 		return "", err
 	}
 
@@ -201,6 +227,7 @@ func getSHA256Sum(url string) (string, error) {
 
 	respBodyBytes, err := io.ReadAll(resp.Body)
 	if err != nil {
+		logrus.WithError(err).WithField("url", url).Error("failed to read response body")
 		return "", err
 	}
 
