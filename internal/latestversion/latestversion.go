@@ -2,6 +2,7 @@ package latestversion
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 
@@ -27,6 +28,11 @@ func GetLatestVersion(owner, repo string) (version.Version, error) {
 	if err != nil {
 		logrus.WithError(err).WithField("url", url).Error("failed to decode response")
 		return nil, err
+	}
+
+	if len(version.Version()) == 0 {
+		logrus.Error("latest version length is 0")
+		return nil, errors.New("latest version length is 0")
 	}
 
 	logrus.WithField("LatestGitHubVersion", fmt.Sprintf("%#v", version)).Info("LatestGitHubVersion")
