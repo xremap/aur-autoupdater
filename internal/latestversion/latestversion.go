@@ -3,8 +3,10 @@ package latestversion
 import (
 	"errors"
 	"fmt"
-	"github.com/go-resty/resty/v2"
 	"net/http"
+	"os"
+
+	"github.com/go-resty/resty/v2"
 
 	"github.com/njkevlani/aur-autoupdater/internal/version"
 	"github.com/sirupsen/logrus"
@@ -16,6 +18,7 @@ func GetLatestVersion(owner, repo string) (version.Version, error) {
 
 	versionFromGitHub := LatestGitHubVersion{}
 	resp, err := resty.New().R().
+		SetAuthToken(os.Getenv("GH_TOKEN_FOR_AUR_AUTO_UPDATE")).
 		SetResult(&versionFromGitHub).
 		Get(url)
 
