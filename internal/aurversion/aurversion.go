@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 
 	pkgbuild "github.com/mikkeloscar/gopkgbuild"
-	"github.com/njkevlani/aur-autoupdater/internal/version"
+	"github.com/xremap/aur-autoupdater/internal/version"
 	"github.com/sirupsen/logrus"
 )
 

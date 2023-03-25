@@ -8,7 +8,7 @@ import (
 
 	"github.com/go-resty/resty/v2"
 
-	"github.com/njkevlani/aur-autoupdater/internal/version"
+	"github.com/xremap/aur-autoupdater/internal/version"
 	"github.com/sirupsen/logrus"
 )
 

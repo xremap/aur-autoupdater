@@ -1,4 +1,4 @@
-module github.com/njkevlani/aur-autoupdater
+module github.com/xremap/aur-autoupdater
 
 go 1.19
 
