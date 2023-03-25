@@ -34,4 +34,18 @@ var PackageInfos = map[string]PackageInfo{
 			SrcinfoTemplateFilepath:  "assets/xremap-x11-bin/.SRCINFO.tmpl",
 		},
 	},
+	"xremap-hypr-bin": {
+		Name: "xremap-hypr-bin",
+		GitHubInfo: GitHubInfo{
+			Owner: "k0kubun",
+			Repo:  "xremap",
+			ReleaseAssetURL: func(version string) string {
+				return fmt.Sprintf("https://github.com/k0kubun/xremap/releases/download/v%s/xremap-linux-x86_64-hypr.zip", version)
+			},
+		},
+		PkgbuildInfo: PkgbuildInfo{
+			PkgbuildTemplateFilepath: "assets/xremap-hypr-bin/PKGBUILD.tmpl",
+			SrcinfoTemplateFilepath:  "assets/xremap-hypr-bin/.SRCINFO.tmpl",
+		},
+	},
 }
