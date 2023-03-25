@@ -3,8 +3,14 @@ package main
 import "github.com/xremap/aur-autoupdater/internal/processor"
 
 func main() {
-	err := processor.Process("xremap-x11-bin")
-	if err != nil {
-		panic(err)
+	packages := []string{
+		"xremap-x11-bin",
+		"xremap-hypr-bin",
+	}
+	for _, name := range packages {
+		err := processor.Process(name)
+		if err != nil {
+			panic(err)
+		}
 	}
 }
