@@ -4,8 +4,8 @@ import (
 	"io"
 	"text/template"
 
-	"github.com/njkevlani/aur-autoupdater/internal/internalerrors"
-	"github.com/njkevlani/aur-autoupdater/internal/packageinfo"
+	"github.com/xremap/aur-autoupdater/internal/internalerrors"
+	"github.com/xremap/aur-autoupdater/internal/packageinfo"
 )
 
 type Pkgbuild struct {
