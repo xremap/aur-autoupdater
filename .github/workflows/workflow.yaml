@@ -15,3 +15,4 @@ jobs:
         env:
           SSH_KEY: ${{ secrets.SSH_KEY }}
           SSH_KEY_PASSWORD: ${{ secrets.SSH_KEY_PASSWORD }}
+          GH_TOKEN_FOR_AUR_AUTO_UPDATE: ${{ github.token }}
