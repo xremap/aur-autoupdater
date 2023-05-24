@@ -14,13 +14,13 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/object"
 	gitssh "github.com/go-git/go-git/v5/plumbing/transport/ssh"
 	"github.com/go-git/go-git/v5/storage/memory"
+	"github.com/sirupsen/logrus"
 	"github.com/xremap/aur-autoupdater/internal/aur/pkgbuild"
 	"github.com/xremap/aur-autoupdater/internal/aurversion"
 	"github.com/xremap/aur-autoupdater/internal/internalerrors"
 	"github.com/xremap/aur-autoupdater/internal/latestversion"
 	"github.com/xremap/aur-autoupdater/internal/packageinfo"
 	"github.com/xremap/aur-autoupdater/internal/version"
-	"github.com/sirupsen/logrus"
 	"golang.org/x/crypto/ssh"
 )
 
@@ -183,13 +183,14 @@ func getRepo(packageName string) (*git.Repository, billy.Filesystem, error) {
 
 	sshPrivateKeyPassword := os.Getenv("SSH_KEY_PASSWORD")
 	sshPrivateKey := os.Getenv("SSH_KEY")
-	publicKey, err := gitssh.NewPublicKeys("aur", []byte(sshPrivateKey), sshPrivateKeyPassword)
-	publicKey.HostKeyCallback = ssh.InsecureIgnoreHostKey()
 
+	publicKey, err := gitssh.NewPublicKeys("aur", []byte(sshPrivateKey), sshPrivateKeyPassword)
 	if err != nil {
 		logrus.WithError(err).Error("failed to get ssh key")
 		return nil, nil, err
 	}
+
+	publicKey.HostKeyCallback = ssh.InsecureIgnoreHostKey()
 
 	repo, err := git.Clone(memory.NewStorage(), fs, &git.CloneOptions{
 		URL:  fmt.Sprintf("ssh://aur@aur.archlinux.org/%s.git", packageName),
