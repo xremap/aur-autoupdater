@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/go-git/go-billy/v5 v5.5.0
 	github.com/go-git/go-git/v5 v5.9.0
-	github.com/go-resty/resty/v2 v2.7.0
+	github.com/go-resty/resty/v2 v2.8.0
 	github.com/mikkeloscar/gopkgbuild v0.0.0-20211012125930-1f52fd970155
 	github.com/sirupsen/logrus v1.9.3
 	golang.org/x/crypto v0.13.0
