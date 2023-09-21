@@ -1,0 +1,12 @@
+pkgbase = xremap-gnome-bin
+	pkgdesc = Dynamic key remapper for X11 and Wayland
+	pkgver = {{.Pkgver}}
+	pkgrel = 1
+	url = https://github.com/k0kubun/xremap
+	arch = x86_64
+	license = MIT
+	provides = xremap
+	source_x86_64 = xremap-gnome-bin-{{.Pkgver}}.zip::https://github.com/k0kubun/xremap/releases/download/v{{.Pkgver}}/xremap-linux-x86_64-gnome.zip
+	sha256sums_x86_64 = {{.SHA256Sum}}
+
+pkgname = xremap-gnome-bin
