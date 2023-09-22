@@ -168,7 +168,7 @@ func changeVersion(repo *git.Repository, fs billy.Filesystem, packageInfo packag
 	logrus.WithField("status", status).Info("git status")
 
 	commit, err := workTree.Commit(fmt.Sprintf("Updated to %s", latestVersion.Version()), &git.CommitOptions{
-		Author: &object.Signature{Name: "Nilesh", Email: "njkevlani@gmail.com", When: time.Now()},
+		Author: &object.Signature{Name: "k0kubun", Email: "takashikkbn@gmail.com", When: time.Now()},
 	})
 	if err != nil {
 		logrus.WithError(err).Error("failed to commit")
