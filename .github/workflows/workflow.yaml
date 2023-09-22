@@ -1,3 +1,4 @@
+name: aur
 on:
   workflow_dispatch:
   schedule:
@@ -5,7 +6,7 @@ on:
   push:
   pull_request:
 jobs:
-  run:
+  update:
     runs-on: ubuntu-latest
     container: golang:1.19-bullseye
     steps:
