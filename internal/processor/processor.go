@@ -144,8 +144,9 @@ func changeVersion(repo *git.Repository, fs billy.Filesystem, packageInfo packag
 	if err = pkgbuild.RenderPkgbuild(
 		packageInfo.Name,
 		pkgbuild.Pkgbuild{
-			Pkgver:    version.StripV(latestVersion.Version()),
-			SHA256Sum: sha256Sum,
+			Pkgver:           version.StripV(latestVersion.Version()),
+			SHA256Sum:        sha256Sum,
+			SHA256SumAarch64: sha256SumAarch64,
 		},
 		pkgbuildFile,
 	); err != nil {
