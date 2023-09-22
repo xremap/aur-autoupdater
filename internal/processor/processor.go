@@ -94,8 +94,7 @@ func changeVersion(repo *git.Repository, fs billy.Filesystem, packageInfo packag
 	}
 
 	var sha256SumAarch64 string
-	if packageInfo.GitHubInfoAarch64.ReleaseAssetURL != nil {
-		var err error
+	if packageInfo.HasAarch64 {
 		sha256SumAarch64, err = getSHA256Sum(packageInfo.GitHubInfoAarch64.ReleaseAssetURL(version.StripV(latestVersion.Version())))
 		if err != nil {
 			logrus.WithError(err).Error("failed to get aarch64 sha256sum")

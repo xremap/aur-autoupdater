@@ -7,6 +7,7 @@ type PackageInfo struct {
 	GitHubInfo        GitHubInfo
 	GitHubInfoAarch64 GitHubInfo
 	PkgbuildInfo      PkgbuildInfo
+	HasAarch64        bool
 }
 
 type GitHubInfo struct {
@@ -41,6 +42,7 @@ var PackageInfos = map[string]PackageInfo{
 			PkgbuildTemplateFilepath: "assets/xremap-gnome-bin/PKGBUILD.tmpl",
 			SrcinfoTemplateFilepath:  "assets/xremap-gnome-bin/.SRCINFO.tmpl",
 		},
+		HasAarch64: true,
 	},
 	"xremap-hypr-bin": {
 		Name: "xremap-hypr-bin",
@@ -55,6 +57,7 @@ var PackageInfos = map[string]PackageInfo{
 			PkgbuildTemplateFilepath: "assets/xremap-hypr-bin/PKGBUILD.tmpl",
 			SrcinfoTemplateFilepath:  "assets/xremap-hypr-bin/.SRCINFO.tmpl",
 		},
+		HasAarch64: false,
 	},
 	"xremap-x11-bin": {
 		Name: "xremap-x11-bin",
@@ -69,5 +72,6 @@ var PackageInfos = map[string]PackageInfo{
 			PkgbuildTemplateFilepath: "assets/xremap-x11-bin/PKGBUILD.tmpl",
 			SrcinfoTemplateFilepath:  "assets/xremap-x11-bin/.SRCINFO.tmpl",
 		},
+		HasAarch64: false,
 	},
 }
