@@ -3,9 +3,10 @@ package packageinfo
 import "fmt"
 
 type PackageInfo struct {
-	Name         string
-	GitHubInfo   GitHubInfo
-	PkgbuildInfo PkgbuildInfo
+	Name              string
+	GitHubInfo        GitHubInfo
+	GitHubInfoAarch64 GitHubInfo
+	PkgbuildInfo      PkgbuildInfo
 }
 
 type GitHubInfo struct {
@@ -20,18 +21,25 @@ type PkgbuildInfo struct {
 }
 
 var PackageInfos = map[string]PackageInfo{
-	"xremap-x11-bin": {
-		Name: "xremap-x11-bin",
+	"xremap-gnome-bin": {
+		Name: "xremap-gnome-bin",
 		GitHubInfo: GitHubInfo{
 			Owner: "k0kubun",
 			Repo:  "xremap",
 			ReleaseAssetURL: func(version string) string {
-				return fmt.Sprintf("https://github.com/k0kubun/xremap/releases/download/v%s/xremap-linux-x86_64-x11.zip", version)
+				return fmt.Sprintf("https://github.com/k0kubun/xremap/releases/download/v%s/xremap-linux-x86_64-gnome.zip", version)
+			},
+		},
+		GitHubInfoAarch64: GitHubInfo{
+			Owner: "k0kubun",
+			Repo:  "xremap",
+			ReleaseAssetURL: func(version string) string {
+				return fmt.Sprintf("https://github.com/k0kubun/xremap/releases/download/v%s/xremap-linux-aarch64-gnome.zip", version)
 			},
 		},
 		PkgbuildInfo: PkgbuildInfo{
-			PkgbuildTemplateFilepath: "assets/xremap-x11-bin/PKGBUILD.tmpl",
-			SrcinfoTemplateFilepath:  "assets/xremap-x11-bin/.SRCINFO.tmpl",
+			PkgbuildTemplateFilepath: "assets/xremap-gnome-bin/PKGBUILD.tmpl",
+			SrcinfoTemplateFilepath:  "assets/xremap-gnome-bin/.SRCINFO.tmpl",
 		},
 	},
 	"xremap-hypr-bin": {
@@ -46,6 +54,20 @@ var PackageInfos = map[string]PackageInfo{
 		PkgbuildInfo: PkgbuildInfo{
 			PkgbuildTemplateFilepath: "assets/xremap-hypr-bin/PKGBUILD.tmpl",
 			SrcinfoTemplateFilepath:  "assets/xremap-hypr-bin/.SRCINFO.tmpl",
+		},
+	},
+	"xremap-x11-bin": {
+		Name: "xremap-x11-bin",
+		GitHubInfo: GitHubInfo{
+			Owner: "k0kubun",
+			Repo:  "xremap",
+			ReleaseAssetURL: func(version string) string {
+				return fmt.Sprintf("https://github.com/k0kubun/xremap/releases/download/v%s/xremap-linux-x86_64-x11.zip", version)
+			},
+		},
+		PkgbuildInfo: PkgbuildInfo{
+			PkgbuildTemplateFilepath: "assets/xremap-x11-bin/PKGBUILD.tmpl",
+			SrcinfoTemplateFilepath:  "assets/xremap-x11-bin/.SRCINFO.tmpl",
 		},
 	},
 }
