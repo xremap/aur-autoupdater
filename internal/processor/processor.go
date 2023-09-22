@@ -93,6 +93,16 @@ func changeVersion(repo *git.Repository, fs billy.Filesystem, packageInfo packag
 		return err
 	}
 
+	var sha256SumAarch64 string
+	if packageInfo.GitHubInfoAarch64.ReleaseAssetURL != nil {
+		var err error
+		sha256SumAarch64, err = getSHA256Sum(packageInfo.GitHubInfoAarch64.ReleaseAssetURL(version.StripV(latestVersion.Version())))
+		if err != nil {
+			logrus.WithError(err).Error("failed to get aarch64 sha256sum")
+			return err
+		}
+	}
+
 	srcinfoFile, err := fs.OpenFile(".SRCINFO", os.O_RDWR, 0644)
 	if err != nil {
 		logrus.WithError(err).Error("failed to open srcinfo file")
@@ -105,8 +115,9 @@ func changeVersion(repo *git.Repository, fs billy.Filesystem, packageInfo packag
 	if err = pkgbuild.RenderSrcinfo(
 		packageInfo.Name,
 		pkgbuild.Pkgbuild{
-			Pkgver:    version.StripV(latestVersion.Version()),
-			SHA256Sum: sha256Sum,
+			Pkgver:           version.StripV(latestVersion.Version()),
+			SHA256Sum:        sha256Sum,
+			SHA256SumAarch64: sha256SumAarch64,
 		},
 		srcinfoFile,
 	); err != nil {

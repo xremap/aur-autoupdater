@@ -9,8 +9,9 @@ import (
 )
 
 type Pkgbuild struct {
-	Pkgver    string
-	SHA256Sum string
+	Pkgver           string
+	SHA256Sum        string
+	SHA256SumAarch64 string
 }
 
 type renderType int
