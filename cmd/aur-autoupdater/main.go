@@ -6,6 +6,7 @@ func main() {
 	packages := []string{
 		"xremap-gnome-bin",
 		"xremap-hypr-bin",
+		"xremap-wlroots-bin",
 		"xremap-x11-bin",
 	}
 	for _, name := range packages {
