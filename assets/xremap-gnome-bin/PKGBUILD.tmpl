@@ -21,6 +21,12 @@ sha256sums_aarch64=('{{.SHA256SumAarch64}}')
 
 package() {
 	cd "$srcdir/"
+	./xremap --completions zsh > zsh_completions
+	./xremap --completions fish > fish_completions
+	./xremap --completions bash > bash_completions
+	install -Dm644 zsh_completions "${pkgdir}/usr/share/zsh/site-functions/_xremap"
+	install -Dm644 fish_completions "${pkgdir}/usr/share/fish/vendor_completions.d/xremap.fish"
+	install -Dm644 bash_completions "${pkgdir}/usr/share/bash-completion/completions/xremap"
 	install -Dm755 xremap "${pkgdir}/usr/bin/xremap"
 	install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/xremap-gnome-bin/LICENSE"
 }
