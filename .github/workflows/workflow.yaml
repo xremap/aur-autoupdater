@@ -8,7 +8,7 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
-    container: golang:1.19-bullseye
+    container: golang:1.21-bullseye
     steps:
       - uses: actions/checkout@v4
 
