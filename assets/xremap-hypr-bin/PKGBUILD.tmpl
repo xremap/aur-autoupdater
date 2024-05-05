@@ -13,5 +13,9 @@ sha256sums_x86_64=('{{.SHA256Sum}}')
 package() {
   cd "$srcdir/"
 
-  install -Dm755 xremap "${pkgdir}/usr/bin/xremap"
+  install -Dm755 xremap "${pkgdir}/usr/bin/xremap-hypr"
+
+  if [ ! -L /usr/bin/xremap ]; then
+    ln -sfT xremap-hypr "${pkgdir}/usr/bin/xremap"
+  fi
 }
