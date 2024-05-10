@@ -9,7 +9,6 @@ jobs:
   update:
     runs-on: ubuntu-latest
     container: golang:1.21-bullseye
-    if: ${{ secrets.SSH_KEY != '' && secrets.SSH_KEY_PASSWORD != '' }}
     steps:
       - uses: actions/checkout@v4
 
