@@ -7,7 +7,7 @@ toolchain go1.22.2
 require (
 	github.com/go-git/go-billy/v5 v5.5.0
 	github.com/go-git/go-git/v5 v5.12.0
-	github.com/go-resty/resty/v2 v2.13.0
+	github.com/go-resty/resty/v2 v2.13.1
 	github.com/mikkeloscar/gopkgbuild v0.0.0-20211012125930-1f52fd970155
 	github.com/sirupsen/logrus v1.9.3
 	golang.org/x/crypto v0.23.0
