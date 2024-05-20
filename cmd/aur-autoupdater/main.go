@@ -5,7 +5,6 @@ import "github.com/xremap/aur-autoupdater/internal/processor"
 func main() {
 	packages := []string{
 		"xremap-gnome-bin",
-		"xremap-hypr-bin",
 		"xremap-wlroots-bin",
 		"xremap-x11-bin",
 	}
