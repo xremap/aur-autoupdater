@@ -2,7 +2,7 @@
 
 Job to auto update version of AUR package if newer version is available.
 
-# How to run locally
+## How to run locally
 Set up environment variables.
 ```shell
 export SSH_KEY=$(cat /home/njkevlani/.ssh/aur_key)
@@ -14,3 +14,10 @@ Run code.
 ```shell
 make go-run
 ```
+
+## Packages
+
+* https://aur.archlinux.org/packages/xremap-gnome-bin
+* https://aur.archlinux.org/packages/xremap-hypr-bin
+* https://aur.archlinux.org/packages/xremap-wlroots-bin
+* https://aur.archlinux.org/packages/xremap-x11-bin
