@@ -10,7 +10,7 @@ require (
 	github.com/go-resty/resty/v2 v2.16.2
 	github.com/mikkeloscar/gopkgbuild v0.0.0-20211012125930-1f52fd970155
 	github.com/sirupsen/logrus v1.9.3
-	golang.org/x/crypto v0.37.0
+	golang.org/x/crypto v0.41.0
 )
 
 require (
@@ -28,7 +28,7 @@ require (
 	github.com/sergi/go-diff v1.3.2-0.20230802210424-5b0b94c5c0d3 // indirect
 	github.com/skeema/knownhosts v1.3.1 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
-	golang.org/x/net v0.39.0 // indirect
-	golang.org/x/sys v0.32.0 // indirect
+	golang.org/x/net v0.42.0 // indirect
+	golang.org/x/sys v0.35.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )
