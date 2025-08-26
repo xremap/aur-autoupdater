@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     container: golang:1.22-bullseye
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - run: go run cmd/aur-autoupdater/main.go
         env:
