@@ -18,6 +18,7 @@ make go-run
 ## Packages
 
 * https://aur.archlinux.org/packages/xremap-gnome-bin
+* https://aur.archlinux.org/packages/xremap-niri-bin
 * https://aur.archlinux.org/packages/xremap-hypr-bin
 * https://aur.archlinux.org/packages/xremap-wlroots-bin
 * https://aur.archlinux.org/packages/xremap-x11-bin
