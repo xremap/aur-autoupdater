@@ -63,6 +63,27 @@ var PackageInfos = map[string]PackageInfo{
 			SrcinfoTemplateFilepath:  "assets/xremap-niri-bin/.SRCINFO.tmpl",
 		},
 	},
+	"xremap-kde-bin": {
+		Name: "xremap-kde-bin",
+		GitHubInfo: GitHubInfo{
+			Owner: "xremap",
+			Repo:  "xremap",
+			ReleaseAssetURL: func(version string) string {
+				return fmt.Sprintf("https://github.com/xremap/xremap/releases/download/v%s/xremap-linux-x86_64-kde.zip", version)
+			},
+		},
+		GitHubInfoAarch64: GitHubInfo{
+			Owner: "xremap",
+			Repo:  "xremap",
+			ReleaseAssetURL: func(version string) string {
+				return fmt.Sprintf("https://github.com/xremap/xremap/releases/download/v%s/xremap-linux-aarch64-kde.zip", version)
+			},
+		},
+		PkgbuildInfo: PkgbuildInfo{
+			PkgbuildTemplateFilepath: "assets/xremap-kde-bin/PKGBUILD.tmpl",
+			SrcinfoTemplateFilepath:  "assets/xremap-kde-bin/.SRCINFO.tmpl",
+		},
+	},
 	"xremap-hypr-bin": {
 		Name: "xremap-hypr-bin",
 		GitHubInfo: GitHubInfo{

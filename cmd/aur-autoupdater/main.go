@@ -6,6 +6,7 @@ func main() {
 	packages := []string{
 		"xremap-gnome-bin",
 		"xremap-niri-bin",
+		"xremap-kde-bin",
 		"xremap-hypr-bin",
 		"xremap-wlroots-bin",
 		"xremap-x11-bin",
