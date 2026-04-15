@@ -5,7 +5,8 @@ pkgbase = xremap-wlroots-bin
 	url = https://github.com/k0kubun/xremap
 	arch = x86_64
 	license = MIT
-	provides = xremap
+	depends = xremap-base
+	provides = xremap-wlroots
 	source_x86_64 = xremap-wlroots-bin-{{.Pkgver}}.zip::https://github.com/k0kubun/xremap/releases/download/v{{.Pkgver}}/xremap-linux-x86_64-wlroots.zip
 	sha256sums_x86_64 = {{.SHA256Sum}}
 
