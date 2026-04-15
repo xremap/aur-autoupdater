@@ -4,7 +4,8 @@ pkgdesc='Dynamic key remapper for X11 and Wayland (KDE Wayland Version)'
 pkgver={{.Pkgver}}
 pkgrel=1
 
-provides=('xremap')
+depends=('xremap-base')
+provides=('xremap-kde')
 license=('MIT')
 url='https://github.com/xremap/xremap'
 arch=('x86_64' 'aarch64')
@@ -24,9 +25,9 @@ package() {
 	./xremap --completions zsh > zsh_completions
 	./xremap --completions fish > fish_completions
 	./xremap --completions bash > bash_completions
-	install -Dm644 zsh_completions "${pkgdir}/usr/share/zsh/site-functions/_xremap"
-	install -Dm644 fish_completions "${pkgdir}/usr/share/fish/vendor_completions.d/xremap.fish"
-	install -Dm644 bash_completions "${pkgdir}/usr/share/bash-completion/completions/xremap"
-	install -Dm755 xremap "${pkgdir}/usr/bin/xremap"
+	install -Dm644 zsh_completions "${pkgdir}/usr/share/zsh/site-functions/_xremap-kde"
+	install -Dm644 fish_completions "${pkgdir}/usr/share/fish/vendor_completions.d/xremap-kde.fish"
+	install -Dm644 bash_completions "${pkgdir}/usr/share/bash-completion/completions/xremap-kde"
+	install -Dm755 xremap "${pkgdir}/usr/bin/xremap-kde"
 	install -Dm644 "LICENSE-$pkgver" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
